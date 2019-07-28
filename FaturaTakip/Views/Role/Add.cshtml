@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<header class="masthead" style="background-image: url('../images/evTekstili.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    @*<div class="card bg-light">*@
+                    <article class=" mx-auto" style="max-width: 400px;">
+                        <h4 class="card-title mt-3 text-center">Rol Ekle</h4>
+
+
+                        <form action="../Role/Add" method="post" role="form">
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                                </div>
+                                <input name="RolAdi" class="form-control" placeholder="Rol Adı Giriniz" type="text">
+                            </div> <!-- form-group// -->
+
+
+
+
+                            <div class="form-group">
+                                <span class="col-md-12 badge badge-danger">@ViewBag.Mesaj</span>
+                                <button type="submit" class="btn btn-primary btn-block">Rol Ekle  </button>
+                            </div> <!-- form-group// -->
+
+                        </form>
+
+                    </article>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

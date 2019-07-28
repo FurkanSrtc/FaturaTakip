@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "uyeRolleri";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using FaturaTakip.Models.ViewModels
+
+
+
+<header class="masthead">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>Roller</h1>
+
+
+                    <table class="table bg-light">
+                        <tr>
+                            <th>
+                                Kullanıcı Adı : @Session["RolKullaniciAdi"]
+                            </th>
+
+
+                        </tr>
+
+                        @foreach (string item in ViewBag.roller)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Delete", "UyeRolSil", new { id = item }, new { @class = "btn btn-danger" })
+
+                                </td>
+                            </tr>
+                        }
+
+
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

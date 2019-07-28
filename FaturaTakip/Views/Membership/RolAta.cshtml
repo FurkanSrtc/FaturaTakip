@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "RolAta";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using FaturaTakip.Models.ViewModels
+@model RolAta
+
+
+<header class="masthead" style="background-image: url('../images/evTekstili.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    @*<div class="card bg-light">*@
+                    <article class=" mx-auto" style="max-width: 400px;">
+                        <h4 class="card-title mt-3 text-center">Rol Ata</h4>
+
+
+                        <form action="/Membership/RolAta" method="post" role="form">
+
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                                </div>
+
+                                @Html.TextBoxFor(x => x.KullaniciAdi, null, new { @class = "form-control" })
+                                @*<input name="KullaniciAdi" value="@Model.KullaniciAdi" disabled="disabled" class="form-control" type="text">*@
+                            </div> <!-- form-group// -->
+
+
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                                </div>
+
+                                @Html.DropDownList("Rol", (IEnumerable<SelectListItem>)ViewBag.Roller, null, new { @class = "form-control" })
+
+
+                                @*<select class="form-control" name="RolAdi">
+                                        @foreach (string Rol in ViewBag.Roller)
+                                        {
+                                            <option value="Rol">@Rol</option>
+                                        }
+
+                                    </select>*@
+
+
+                            </div> <!-- form-group// -->
+
+
+
+                            <div class="form-group">
+                                <span class="col-md-12 badge badge-danger">@ViewBag.Mesaj</span>
+                                <button type="submit" class="btn btn-primary btn-block">Rol Ekle  </button>
+                            </div> <!-- form-group// -->
+
+                        </form>
+
+                    </article>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

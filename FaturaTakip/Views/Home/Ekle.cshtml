@@ -1,0 +1,96 @@
+﻿@model FaturaTakip.Models.ViewModels.FaturaEkleViewModel
+
+@{
+    ViewBag.Title = "Ekle";
+}
+
+
+@using (Html.BeginForm("Ekle", "Home", FormMethod.Post,
+                                    new
+                                    {
+                                        enctype = "multipart/form-data"
+                                    }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Fatura Ekle</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(x => x.Fatura.FaturaNo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Fatura.FaturaNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Fatura.FaturaNo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.FaturaTarihi, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FaturaTarihi, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FaturaTarihi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<input class="form-control" id="searchInput" />*@
+
+        <div class="form-group">
+            @Html.Label("Firma Adı", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Fatura.Firmalar.FirmaAdi, new { htmlAttributes = new {id="searchInput", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Fatura.Firmalar.FirmaAdi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+      
+
+
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Fatura.Firmalar, "Firma", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @Html.DropDownListFor(model => model.Fatura.Firmalar,ViewBag.FirmaList as SelectList, "Firma", new { @class = "" })
+                @Html.ValidationMessageFor(model => model.Fatura.Firmalar, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group col-md-6">
+            @Html.LabelFor(x => x.Fatura.PdfYolu, htmlAttributes: new { @class = "control-label col-md-12" })
+
+            <input id="ImagePath" title="Pdf Dosyasını Ekleyin" accept="application/pdf"
+                   type="file" name="file" />
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+<script>
+    $("#searchInput").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: '@Url.Action("GetSearchValue","Home")',
+                dataType: "json",
+                data: { search: $("#searchInput").val() },
+                success: function (data) {
+                    response($.map(data, function (item) {
+                        return { label: item.FirmaAdi, value: item.FirmaAdi };
+                    }));
+                },
+                error: function (xhr, status, error) {
+                    alert("Error");
+                }
+            });
+        }
+    });
+</script>

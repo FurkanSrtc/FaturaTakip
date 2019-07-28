@@ -1,0 +1,157 @@
+﻿@model FaturaTakip.Models.ViewModels.Login
+
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<header class="masthead" style="background-image: url('../images/evTekstili.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mt-5 mx-auto">
+                <div class="site-heading">
+                    @*<div class="card bg-light">*@
+                    <article class=" mx-auto" style="max-width: 400px;">
+                        <h4 class="card-title mt-3 text-center">Giriş Ekranı</h4>
+
+
+                        <form action="../Login/Index" method="post" role="form">
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                                </div>
+                                <input name="KullaniciAdi" class="form-control" placeholder="Kullanıcı Adı" type="text">
+                            </div> <!-- form-group// -->
+                            @*<div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+                                    </div>
+                                    <select class="form-control">
+                                        <option selected=""> Select job type</option>
+                                        <option>Designer</option>
+                                        <option>Manager</option>
+                                        <option>Accaunting</option>
+                                    </select>
+                                </div>*@ <!-- form-group end.// -->
+
+
+
+
+
+
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                                </div>
+                                <input name="Parola" class="form-control" placeholder="Parola" type="password">
+                            </div>
+
+
+
+                            <div class="form-group input-group">
+                                <div class="custom-checkbox">
+                                    <label><input type="checkbox" name="Hatirla" /> Beni Hatırla </label>
+                                </div>
+
+                            </div>
+                            <!-- form-group// -->
+                            @*<div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                                    </div>
+                                    <input class="form-control" placeholder="Parola Tekrar" type="password">
+                                </div>*@ <!-- form-group// -->
+                            <div class="form-group">
+                                @if (@ViewBag.Mesaj != null)
+                                {
+                                    <span class="col-md-12 badge badge-danger">@ViewBag.Mesaj</span>
+                                }
+
+                                <button type="submit" class="btn btn-primary btn-block"> Giriş Yap  </button>
+                            </div> <!-- form-group// -->
+                            <p class="text-center">Üye değil misin? <a href="@Url.Action("Add","Membership")">Kayıt ol</a> </p>
+                        </form>
+
+                    </article>
+                    @*</div>*@ <!-- card.// -->
+                    @*@using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+                                <h4>Üye Ol</h4>
+                                <hr />
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+
+                                    <div class="col-md-12">
+
+                                        <div class="col-md-5"> @Html.EditorFor(model => model.Uye_Adi, new { htmlAttributes = new { @class = "form-control" } })
+                                 </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Uye_Soyadi, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Uye_Soyadi, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Uye_Soyadi, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Uye_Telefon, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Uye_Telefon, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Uye_Telefon, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Uye_Mail, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Uye_Mail, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Uye_Mail, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Uye_Adres, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Uye_Adres, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Uye_Adres, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.KullaniciAdi, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.KullaniciAdi, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.KullaniciAdi, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Sifre, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Sifre, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Sifre, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Create" class="btn btn-default" />
+                                    </div>
+                                </div>
+                            </div>
+                        }*@
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

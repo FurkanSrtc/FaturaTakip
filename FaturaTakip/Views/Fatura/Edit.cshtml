@@ -1,0 +1,142 @@
+﻿@model FaturaTakip.Models.ViewModels.FaturaEditViewModel
+
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal mt-5">
+    <h4>Fatura</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Fatura.FaturaNo)
+
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.Fatura.GonderimTarihi, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Fatura.GonderimTarihi, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Fatura.GonderimTarihi, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+    @Html.HiddenFor(model => model.Fatura.GonderimTarihi, new { htmlAttributes = new { @class = "form-control" } })
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Fatura.Aciklama, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Fatura.Aciklama, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Fatura.Aciklama, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Fatura.PdfYolu, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <a href="~/Pdf/@Html.DisplayFor(modelItem => modelItem.Fatura.PdfYolu)" target="_blank">  @Html.DisplayFor(modelItem => modelItem.Fatura.PdfYolu)</a> @Html.ValidationMessageFor(model => model.Fatura.PdfYolu, "", new { @class = "text-danger" })
+
+
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Fatura.İncelendiMi, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.Fatura.İncelendiMi)
+                @Html.ValidationMessageFor(model => model.Fatura.İncelendiMi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.Fatura.isVisible, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Fatura.isVisible)
+                    @Html.ValidationMessageFor(model => model.Fatura.isVisible, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>*@
+
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.Fatura.FirmaId, "FirmaId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("FirmaId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Fatura.FirmaId, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+    @Html.HiddenFor(model => model.Fatura.FirmaId)
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Fatura.FaturaTarihi, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @*@Html.EditorFor(model => model.Fatura.FaturaTarihi, new { htmlAttributes = new { @class = "form-control" } })*@
+
+            @Html.TextBoxFor(m => m.Fatura.FaturaTarihi, "{0:dd/MM/yyyy}", new { htmlAttributes = new { @class = "form-control" } })
+
+            @Html.ValidationMessageFor(model => model.Fatura.FaturaTarihi, "", new { @class = "text-danger" })
+        </div>
+    </div>
+     
+
+    
+    <div class="form-group">
+        <div class="col-md-10">
+            <ul>
+                @for (int i = 0; i < Model.Hatalar.Count; i++)
+                {
+                    <li>
+                        @Html.CheckBoxFor(model => model.Hatalar[i].isChecked)
+                        <label>@Model.Hatalar[i].HataAdi</label> 
+                        @Html.HiddenFor(model => @Model.Hatalar[i].HataAdi)
+                        @Html.HiddenFor(model => @Model.Hatalar[i].HKodu)
+
+                    </li>
+                }
+
+                @*@foreach (var item in Model.Hatalar.ToList())
+        {
+        <li>
+            @Html.CheckBoxFor(x => item.isChecked)
+            @item.HataAdi
+            @Html.HiddenFor(x => item.HataAdi)
+            @Html.HiddenFor(x => item.HKodu)
+
+        </li>
+        }*@
+
+            </ul>
+        </div>
+    </div>
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.Fatura.KullaniciNo, "KullaniciNo", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("KullaniciNo", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Fatura.KullaniciNo, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+    @*<div class="form-group">
+            <div class="col-md-10">
+                @Html.LabelFor(model => model.Fatura.BilgisayarAdi, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Fatura.BilgisayarAdi, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+

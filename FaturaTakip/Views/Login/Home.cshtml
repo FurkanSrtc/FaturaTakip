@@ -1,0 +1,202 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using System.Web.Security
+@model MembershipUserCollection
+
+
+
+@**@
+
+
+
+<header class="masthead" style="background-image: url('../images/evTekstili.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>Üyeler</h1>
+                    <div class="text-right">
+                        @Html.ActionLink("Üye Ekle", "Add", "Membership", null, new { @class = "btn btn-success btn-sm" })
+                    </div>
+
+                    <table class="table bg-light">
+                        <tr>
+                            <th>
+                                Kullanıcı Adı
+                            </th>
+                            <th>
+                                E-Mail
+                            </th>
+                            <th>
+                                Kayıt Tarihi
+                            </th>
+                            <th>
+                                Son Giriş Tarihi
+                            </th>
+
+                            <th>
+                                Rolleri
+                            </th>
+                            <th>Rol Ata</th>
+                            <th></th>
+
+                        </tr>
+
+                        @foreach (MembershipUser item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UserName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreationDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LastLoginDate)
+                                </td>
+
+                                <td>
+
+
+                                    @Html.ActionLink("Rolleri", "uyeRolleri", "MemberShip", new { id = item.UserName }, new { @class = "btn btn-primary" })
+                                </td>
+                                <td>
+
+                                    @Html.ActionLink("Rol Ata", "RolAta", "MemberShip", new { id = item.UserName }, new { @class = "btn btn-primary" })
+                                    @*<a class="btn btn-primary" href="../Membership/RolAta/@item.UserName" data-uyeadi="@item.UserName">Rol Ata</a>*@
+
+                                </td>
+                                <td>
+
+                                    @Html.ActionLink("Delete", "Delete", "Membership", new { id = item.UserName }, new { @class = "btn btn-danger" })
+                                </td>
+                            </tr>
+                        }
+
+
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+@*<div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+
+                <br />
+                <h2>Üyeler</h2>
+                <table class="table">
+                    <tr>
+                        <th>
+                            Kullanıcı Adı
+                        </th>
+                        <th>
+                            E-Mail
+                        </th>
+                        <th>
+                            Kayıt Tarihi
+                        </th>
+                        <th>
+                            Son Giriş Tarihi
+                        </th>
+
+                        <th></th>
+                    </tr>
+
+                    @foreach (MembershipUser item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreationDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LastLoginDate)
+                            </td>
+
+                            <td>
+
+                                @Html.ActionLink("Delete", "Delete", new { id = item.UserName })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>*@
+
+
+@*<div class="container">
+        <div class="row">
+
+
+
+            <br />
+            <h2>Üyeler</h2>
+            <table class="table">
+                <tr>
+                    <th>
+                        Kullanıcı Adı
+                    </th>
+                    <th>
+                        E-Mail
+                    </th>
+                    <th>
+                        Kayıt Tarihi
+                    </th>
+                    <th>
+                        Son Giriş Tarihi
+                    </th>
+
+                    <th></th>
+                </tr>
+
+                @foreach (MembershipUser item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreationDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastLoginDate)
+                        </td>
+
+                        <td>
+
+                            @Html.ActionLink("Delete", "Delete", new { id = item.UserName })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+
+        </div>
+    </div>*@
+
+

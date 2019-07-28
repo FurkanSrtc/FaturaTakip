@@ -1,0 +1,129 @@
+﻿
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")">Cengiz Makina</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="@Url.Action("Page", "Login")">
+                            Anasayfa
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    @*<li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Index", "About")">Hakkımızda</a>
+        </li>*@
+
+
+
+
+
+
+
+
+
+                    @{
+                        if (User.Identity.IsAuthenticated == true)
+                        {
+                            if (User.IsInRole("Admin"))
+                            {
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Ekle", "Home")"> Fatura Ekle</a>
+                                </li>
+
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Index", "Fatura")">Faturalar</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Index", "Role")">Roller</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Home", "Login")">Üyeler</a>
+                                </li>
+
+                            }
+                            else if (User.IsInRole("SatinAlma"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Ekle", "Home")"> Fatura Ekle</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Index", "Fatura")">Faturalar</a>
+                                </li>
+
+                            }
+                            else if (User.IsInRole("MaliIsler"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Ekle", "Home")"> Fatura Ekle</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Index", "Fatura")">Faturalar</a>
+                                </li>
+
+                            }
+
+                            else if (User.IsInRole("Santral"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("Ekle", "Home")"> Fatura Ekle</a>
+                                </li>
+
+                          
+
+                            }
+
+                        }
+
+                    }
+                </ul>
+
+                @{
+
+                    if (User.Identity.IsAuthenticated == true)
+                    {
+                        <ul class="nav navbar-nav navbar-right">
+
+
+
+
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(User.Identity.Name)
+
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/MemberShip/Logout">Çıkış Yap</a>
+
+                                </div>
+                            </li>
+
+                        </ul>
+
+
+                    }
+
+                    else
+                    {
+
+                        <ul class="nav navbar-nav navbar-right">
+
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Index", "Login")">Giriş Yap</a>
+                            </li>
+                        </ul>
+                    }
+                }
+            </div>
+        </div>
+    </nav>

@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<String>
+
+
+
+<header class="masthead" style="background-image: url('../images/evTekstili.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>Üyeler</h1>
+                    <div class="text-right">
+                        @Html.ActionLink("Rol Ekle", "Add", null, new { @class = "btn btn-success btn-sm" })
+                    </div>
+
+                    <table class="table bg-light">
+                        <tr>
+                            <th>
+                                Rol Adı
+                            </th>
+
+                            <th> </th>
+
+                        </tr>
+
+                        @foreach (string item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Sil", "Delete", new { id = item }, new { @class = "btn btn-danger" })
+                                </td>
+                            </tr>
+                        }
+
+
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

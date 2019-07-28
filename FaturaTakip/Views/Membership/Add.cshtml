@@ -1,0 +1,104 @@
+﻿@model FaturaTakip.Models.Kullanici
+
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<header class="masthead" style="background-image: url('../images/image.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mt-5 mx-auto">
+                <div class="site-heading">
+                    @*<div class="card bg-light">*@
+                    <article class=" mx-auto" style="max-width: 400px;">
+                        <h4 class="card-title mt-3 text-center">Create Account</h4>
+
+
+                        <form action="/Membership/Add" method="post" role="form">
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                                </div>
+                                <input name="KullaniciAdi" class="form-control" placeholder="Kullanıcı Adı" type="text">
+                            </div> <!-- form-group// -->
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                                </div>
+                                <input name="Email" class="form-control" placeholder="Mail Adresi" type="email">
+                            </div> <!-- form-group// -->
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+                                </div>
+                                <select class="custom-select" style="max-width: 120px;">
+                                    <option selected="">+90</option>
+                                    <option value="1">+212</option>
+                                    <option value="2">+198</option>
+                                    <option value="3">+701</option>
+                                </select>
+                                <input name="Telefon" class="form-control" placeholder="Telefon Numarası" type="text">
+                            </div> <!-- form-group// -->
+                            @*<div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+                                    </div>
+                                    <select class="form-control">
+                                        <option selected=""> Select job type</option>
+                                        <option>Designer</option>
+                                        <option>Manager</option>
+                                        <option>Accaunting</option>
+                                    </select>
+                                </div>*@ <!-- form-group end.// -->
+
+
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                                </div>
+                                <input name="GizliSoru" class="form-control" placeholder="Gizli Soru" type="text">
+                            </div>
+
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                                </div>
+                                <input name="GizliCevap" class="form-control" placeholder="Gizli Cevap" type="text">
+                            </div>
+
+
+
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                                </div>
+                                <input name="Parola" class="form-control" placeholder="Parola" type="password">
+                            </div> <!-- form-group// -->
+                            @*<div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                                    </div>
+                                    <input class="form-control" placeholder="Parola Tekrar" type="password">
+                                </div>*@ <!-- form-group// -->
+                            <div class="form-group">
+
+
+                                @if (@ViewBag.Mesaj != null)
+                                {
+                                    <span class="col-md-12 badge badge-danger">@ViewBag.Mesaj</span>
+                                }
+
+                                <button type="submit" class="btn btn-primary btn-block"> Üye Ol  </button>
+                            </div> <!-- form-group// -->
+                            <p class="text-center">Zaten üye misin? <a href="@Url.Action("Index","Admin")">Giriş Yap</a> </p>
+                        </form>
+
+                    </article>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
