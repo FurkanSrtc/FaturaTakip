@@ -6,7 +6,7 @@ Create TAble Departman
 (DNo tinyint primary key,
  DAdi varchar(50),
 )
---Departman Tablosu DNo kolonundan Kullanýcýlar tablosuna baðlanacak.
+--Departman Tablosu DNo kolonundan KullanÄ±cÄ±lar tablosuna baÄŸlanacak.
 Create table Kullanicilar(
 KNo int identity(1,1) primary key,
 Adi varchar(40),
@@ -15,7 +15,7 @@ DepartmanNo tinyint,
 KAdi varchar(30),
 Sifre nvarchar(30)
 );
--- KNo Fatura Tablosu ile baðlanacak
+-- KNo Fatura Tablosu ile baÄŸlanacak
 
 Create Table EksikBilgi(
 id tinyint primary key,
@@ -23,7 +23,7 @@ FatNo varchar(20),
 HataKodu tinyint
 );
 
---FaturaNo Fatura Tablosundan Fatno ile Baðlanacak
+--FaturaNo Fatura Tablosundan Fatno ile BaÄŸlanacak
 Create Table HataTuru(
 HKodu tinyint primary key,
 HataAdi varchar(70)
@@ -33,7 +33,7 @@ Create Table Firmalar(
 FId int identity(1,1) primary key,
 FirmaAdi varchar(70)
 )
---FirmaId ile Fatura Tablosu baðlanacak
+--FirmaId ile Fatura Tablosu baÄŸlanacak
 
 
 Create Table Fatura(
@@ -41,7 +41,7 @@ FaturaNo varchar(20) primary key,
 GonderimTarihi date,
 Aciklama varchar(70),
 PdfYolu varchar(100),
-ÝncelendiMi bit Default(0),
+Ä°ncelendiMi bit Default(0),
 isVisible bit Default(1),
 FirmaId int,
 FaturaTarihi date,
