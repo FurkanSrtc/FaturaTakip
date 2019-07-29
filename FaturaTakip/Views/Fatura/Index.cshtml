@@ -1,146 +1,176 @@
 ﻿@model FaturaTakip.Models.ViewModels.FaturaListViewModel
+@using FaturaTakip.Models;
 
+@using FaturaTakip.HtmlHelpers;
 @{
     ViewBag.Title = "Index";
 }
 
-<table class="table mt-5">
-    <tr>
-        <th>
-            FaturaNo
+@*<table class="table mt-5">*@
+    <table id="example" class="table table-striped table-bordered mt-5" style="width:100%">
+        <tr>
+            <th>
+                FaturaNo
 
-        </th>
-        <th>
-          GonderimTarihi
-        </th>
-        <th>
-           Aciklama
-        </th>
-        <th>
-            PdfYolu
-        </th>
-        <th>
-            İncelendiMi
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.isVisible)
-        </th>*@
-        <th>
-            FaturaTarihi
-        </th>
-        <th>
-            Eksik Bilgiler
-        </th>
-        <th>
-            FirmaAdi
-        </th>
-        <th>
-            KullaniciNo
-        </th>
-        <th></th>
-    </tr>
+            </th>
+            <th>
+                Gonderim <br />Tarihi
+            </th>
+            <th>
+                Aciklama
+            </th>
+            <th>
+                PdfYolu
+            </th>
+            <th>
+                İncelenme <br /> Durumu
+            </th>
+            <th>
+                Onay Durumu
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.isVisible)
+            </th>*@
+            <th>
+                Fatura <br /> Tarihi
+            </th>
+            <th>
+                Eksik Bilgiler
+            </th>
+            <th>
+                FirmaAdi
+            </th>
+            <th>
+                KullaniciNo
+            </th>
+            <th></th>
+        </tr>
 
-@foreach (var item in Model.FaturaList)
-{
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.FaturaNo)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.GonderimTarihi)
-        @*@{
-                
-          if (item.GonderimTarihi == DateTime.Now)
-                  {<br />
-            
-                  <p class="align-bottom float-right btn btn-success btn-sm font-weight-bold">Bugün</p>
-                }
-            else if (item.GonderimTarihi == DateTime.Now.AddDays(-1))
-            {
-                <br />
-                <p class="align-bottom float-right btn btn-success btn-sm font-weight-bold">Dün</p>
-            }
-            else if (item.GonderimTarihi == DateTime.Now.AddDays(-2))
-            {
-                <br />
-                <p class="align-bottom float-right btn btn-success btn-sm font-weight-bold">2 Gün Önce</p>
-            }
-            else if (item.GonderimTarihi == DateTime.Now.AddDays(-3))
-            {
-                <br />
-                <p class="align-bottom float-right btn btn-success btn-sm font-weight-bold">Dün</p>
-            }
-            else if (item.GonderimTarihi == DateTime.Now.AddDays(-4))
-            {
-                <br />
-                <p class="align-bottom float-right btn btn-success btn-sm font-weight-bold">Dün</p>
-            }
-            else if (item.GonderimTarihi == DateTime.Now.AddDays(-5))
-            {
-                <br />
-                <p class="align-bottom float-right btn btn-success btn-sm font-weight-bold">Dün</p>
-            }
-            else if (item.GonderimTarihi == DateTime.Now.AddDays(-6))
-            {
-                <br />
-                <p class="align-bottom float-right btn btn-success btn-sm font-weight-bold">Dün</p>
-            }
-            else if (item.GonderimTarihi == DateTime.Now.AddDays(-7))
-            {
-                <br />
-                <p class="align-bottom float-right btn btn-success btn-sm font-weight-bold">1 Hafta Önce</p> }
-        }*@
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Aciklama)
-    </td>
-    <td>
-        <a href="~/Pdf/@Html.DisplayFor(modelItem => item.PdfYolu)" target="_blank">  @Html.DisplayFor(modelItem => item.PdfYolu)</a>
-
-    </td>
-    <td>
-        @*@Html.DisplayFor(modelItem => item.İncelendiMi)*@
-
-        @{ if (item.İncelendiMi == true)
-            {
-                <button type="button" class="btn btn-success">İncelendi</button>
-            }
-            else
-            {
-                {
-                    <button type="button" class="btn btn-danger">İncelenmedi</button>
-                }
-            }
-        }
-    </td>
-    @*<td>
-            @Html.DisplayFor(modelItem => item.isVisible)
-        </td>*@
-    <td>
-        @Html.DisplayFor(modelItem => item.FaturaTarihi)
-    </td>
-    <td>
-        @foreach (var e in Model.EksikBilgiList.Where(x=>x.FatNo==item.FaturaNo).ToList())
+        @foreach (var item in Model.FaturaList)
         {
-            @Html.Label(e.HataTuru.HataAdi, new { @class = "btn btn-warning btn-sm" })
-     
-         
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FaturaNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GonderimTarihi)
+                    @*@{
+
+                      if (item.GonderimTarihi == DateTime.Now)
+                              {<br />
+
+                              <p class="align-bottom float-right btn btn-success btn-sm font-weight-bold">Bugün</p>
+                            }
+                        else if (item.GonderimTarihi == DateTime.Now.AddDays(-1))
+                        {
+                            <br />
+                            <p class="align-bottom float-right btn btn-success btn-sm font-weight-bold">Dün</p>
+                        }
+                        else if (item.GonderimTarihi == DateTime.Now.AddDays(-2))
+                        {
+                            <br />
+                            <p class="align-bottom float-right btn btn-success btn-sm font-weight-bold">2 Gün Önce</p>
+                        }
+                        else if (item.GonderimTarihi == DateTime.Now.AddDays(-3))
+                        {
+                            <br />
+                            <p class="align-bottom float-right btn btn-success btn-sm font-weight-bold">Dün</p>
+                        }
+                        else if (item.GonderimTarihi == DateTime.Now.AddDays(-4))
+                        {
+                            <br />
+                            <p class="align-bottom float-right btn btn-success btn-sm font-weight-bold">Dün</p>
+                        }
+                        else if (item.GonderimTarihi == DateTime.Now.AddDays(-5))
+                        {
+                            <br />
+                            <p class="align-bottom float-right btn btn-success btn-sm font-weight-bold">Dün</p>
+                        }
+                        else if (item.GonderimTarihi == DateTime.Now.AddDays(-6))
+                        {
+                            <br />
+                            <p class="align-bottom float-right btn btn-success btn-sm font-weight-bold">Dün</p>
+                        }
+                        else if (item.GonderimTarihi == DateTime.Now.AddDays(-7))
+                        {
+                            <br />
+                            <p class="align-bottom float-right btn btn-success btn-sm font-weight-bold">1 Hafta Önce</p> }
+                    }*@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Aciklama)
+                </td>
+                <td>
+                    <a href="~/Pdf/@Html.DisplayFor(modelItem => item.PdfYolu)" target="_blank">  @Html.DisplayFor(modelItem => item.PdfYolu)</a>
+
+                </td>
+
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.İncelendiMi)*@
+
+                    @{ if (item.İncelendiMi == true)
+                        {
+                            <button type="button" class="btn btn-success btn-sm">İncelendi</button>
+                        }
+                        else
+                        {
+                            {
+                                <button type="button" class="btn btn-danger  btn-sm">İncelenmedi</button>
+                            }
+                        }
+                    }
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.İncelendiMi)*@
+
+                    @{ if (item.OnaylandiMi == true)
+                        {
+                            <button type="button" class="btn btn-success btn-sm">Onaylandı</button>
+                        }
+                        else
+                        {
+                            {
+                                <button type="button" class="btn btn-danger btn-sm">Onaylanmadı</button>
+                            }
+                        }
+                    }
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.isVisible)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.FaturaTarihi)
+                </td>
+                <td>
+                    @foreach (var e in Model.EksikBilgiList.Where(x => x.FatNo == item.FaturaNo).ToList())
+                    {
+                        @Html.Label(e.HataTuru.HataAdi, new { @class = "btn btn-warning btn-sm" })
+
+
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Firmalar.FirmaAdi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KullaniciNo)
+                </td>
+                <td>
+
+
+                    @Html.ActionLink(" ", "Edit", new { id = item.FaturaNo }, new { @class = "btn btn-primary fa fa-pencil" })
+
+                    @*@Html.ActionLink(" ", "Delete", new { id = item.FaturaNo }, new { @class = "btn btn-danger fa fa-remove" })*@
+                </td>
+            </tr>
         }
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Firmalar.FirmaAdi)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.KullaniciNo)
-    </td>
-    <td>
-      
 
-        @Html.ActionLink(" ", "Edit", new { id = item.FaturaNo }, new { @class = "btn btn-warning fa fa-pencil" })
-     
-        @Html.ActionLink(" ", "Delete", new { id = item.FaturaNo }, new { @class = "btn btn-danger fa fa-remove" })
-    </td>
-</tr>
-}
+    </table>
+<div class="container">
+    <div class="row">
+        <ul class="pagination">
 
-</table>
+            @Html.PageLinks(Model.PagingInfo, x => Url.Action("Index", "Fatura", new { page = x }))
+        </ul>
+    </div>
+</div>

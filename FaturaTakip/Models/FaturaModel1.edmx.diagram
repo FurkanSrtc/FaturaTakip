@@ -12,10 +12,10 @@
         <AssociationConnector Association="FaturaTakipModel.FK_Kullanicilar_Departman" />
         <EntityTypeShape EntityType="FaturaTakipModel.EksikBilgi" Width="1.5" PointX="7.5" PointY="3.25" />
         <AssociationConnector Association="FaturaTakipModel.FK_EksikBilgi_HataTuru_HataKodu" />
-        <EntityTypeShape EntityType="FaturaTakipModel.Fatura" Width="1.5" PointX="5.25" PointY="9.125" />
+        <EntityTypeShape EntityType="FaturaTakipModel.Fatura" Width="1.5" PointX="5.25" PointY="9" />
         <AssociationConnector Association="FaturaTakipModel.FK_EksikBilgi_Fatura_FatNo" />
         <AssociationConnector Association="FaturaTakipModel.FK_Fatura_Firmalar_FirmaId" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

@@ -9,18 +9,20 @@ namespace FaturaTakip.Controllers
 {
     public class RoleController : Controller
     {
-
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             List<string> roller = Roles.GetAllRoles().ToList();
             return View(roller);
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Add()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult Add(string RolAdi)
         {
@@ -28,6 +30,7 @@ namespace FaturaTakip.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(string id)
         {
             Roles.DeleteRole(id);

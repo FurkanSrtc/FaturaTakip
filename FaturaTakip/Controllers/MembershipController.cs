@@ -17,6 +17,7 @@ namespace FaturaTakip.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult RolAta(string id)
         {
 
@@ -26,6 +27,7 @@ namespace FaturaTakip.Controllers
             return View(r);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult RolAta(RolAta r)
         {
@@ -34,6 +36,7 @@ namespace FaturaTakip.Controllers
             return RedirectToAction("Home", "Login");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult uyeRolleri(string id)
         {
             Session["RolKullaniciAdi"] = id;
@@ -48,17 +51,20 @@ namespace FaturaTakip.Controllers
             return RedirectToAction("Page", "Login");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult UyeRolSil(RolAta r, string id)
         {
             Roles.RemoveUserFromRole((string)Session["RolKullaniciAdi"], id);
             return RedirectToAction("Page", "Login");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(string id)
         {
             Membership.DeleteUser(id);
             return RedirectToAction("Home", "Login");
         }
+
 
         public ActionResult Add()
         {

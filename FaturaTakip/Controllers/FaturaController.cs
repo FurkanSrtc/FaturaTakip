@@ -12,16 +12,35 @@ namespace FaturaTakip.Controllers
     {
         FaturaTakipEntities db = new FaturaTakipEntities();
 
+
+        int PageSize = 20;
+        [Authorize(Roles = "SatinAlma")]
         // GET: Fatura
-        public ActionResult Index()
+        public ActionResult Index(int page=1)
         {
-            FaturaListViewModel faturaList = new FaturaListViewModel();
-            faturaList.FaturaList = db.Fatura.ToList();
+
+            //FaturaListViewModel faturaList = new FaturaListViewModel();
+            //faturaList.FaturaList = db.Fatura.OrderByDescending(x => x.GonderimTarihi.Value).ToList();
+
+            FaturaListViewModel faturaList = new FaturaListViewModel
+            {
+                FaturaList = db.Fatura.OrderByDescending(x => x.GonderimTarihi.Value).ToList().Skip((page - 1) * PageSize).Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = db.Fatura.Count()
+                }
+            };
+
+
+
             faturaList.EksikBilgiList = db.EksikBilgi.ToList();
             return View(faturaList);
         }
 
-        
+
+        [Authorize(Roles = "SatinAlma")]
         public ActionResult Edit(string id)
         {
             FaturaEditViewModel f = new FaturaEditViewModel();
@@ -59,6 +78,7 @@ namespace FaturaTakip.Controllers
             return View(f);
         }
 
+        [Authorize(Roles = "SatinAlma")]
         [HttpPost]
         public ActionResult Edit(FaturaEditViewModel fe)
         {
@@ -73,6 +93,7 @@ namespace FaturaTakip.Controllers
             f.FirmaId = fe.Fatura.FirmaId;
             f.BilgisayarAdi = "";
             f.KullaniciNo = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(User.Identity.Name);
+            f.OnaylandiMi = fe.Fatura.OnaylandiMi;
 
             foreach (var item in db.EksikBilgi.ToList().Where(x=>x.FatNo==fe.Fatura.FaturaNo))
             {

@@ -7,7 +7,9 @@ namespace FaturaTakip.Models.ViewModels
 {
     public class FaturaListViewModel
     {
-        public List<Fatura> FaturaList { get; set; }
+        public IEnumerable<Fatura> FaturaList { get; set; }
+        public PagingInfo PagingInfo { get; set; }
+
 
         public List<EksikBilgi> EksikBilgiList { get; set; }
     }

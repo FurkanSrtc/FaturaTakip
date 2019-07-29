@@ -12,11 +12,13 @@ namespace FaturaTakip.Controllers
     public class HomeController : Controller
     {
         // GET: Home
+
         public ActionResult Index()
         {
             return View();
         }
 
+        [Authorize(Roles = "Santral")]
         public ActionResult Ekle()
         {
           
@@ -26,6 +28,7 @@ namespace FaturaTakip.Controllers
 
         FaturaTakipEntities db = new FaturaTakipEntities();
 
+        [Authorize(Roles = "Santral")]
         [HttpPost]
         public ActionResult Ekle(FaturaEkleViewModel f, HttpPostedFileBase file)
         {
@@ -57,6 +60,7 @@ namespace FaturaTakip.Controllers
                 fatura.KullaniciNo = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(User.Identity.Name);
                 fatura.BilgisayarAdi = "";
                 fatura.FaturaNo = f.Fatura.FaturaNo;
+                fatura.OnaylandiMi = false;
 
                 Firmalar firma = db.Firmalar.Where(x => x.FirmaAdi == f.Fatura.Firmalar.FirmaAdi).FirstOrDefault();
 

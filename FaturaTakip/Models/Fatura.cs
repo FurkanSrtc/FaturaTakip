@@ -30,6 +30,7 @@ namespace FaturaTakip.Models
         public Nullable<System.DateTime> FaturaTarihi { get; set; }
         public string KullaniciNo { get; set; }
         public string BilgisayarAdi { get; set; }
+        public Nullable<bool> OnaylandiMi { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EksikBilgi> EksikBilgi { get; set; }

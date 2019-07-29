@@ -34,6 +34,7 @@
           <Property Name="FaturaTarihi" Type="date" />
           <Property Name="KullaniciNo" Type="varchar" MaxLength="40" />
           <Property Name="BilgisayarAdi" Type="varchar" MaxLength="20" />
+          <Property Name="OnaylandiMi" Type="bit" />
         </EntityType>
         <EntityType Name="Firmalar">
           <Key>
@@ -159,7 +160,7 @@
             <End Role="Firmalar" EntitySet="Firmalar" />
             <End Role="Fatura" EntitySet="Fatura" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Departman">
           <Key>
             <PropertyRef Name="DNo" />
@@ -244,6 +245,7 @@
           <Property Name="FaturaTarihi" Type="DateTime" Precision="0" />
           <Property Name="KullaniciNo" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="BilgisayarAdi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="OnaylandiMi" Type="Boolean" />
           <NavigationProperty Name="EksikBilgi" Relationship="FaturaTakipModel.FK_EksikBilgi_Fatura_FatNo" FromRole="Fatura" ToRole="EksikBilgi" />
           <NavigationProperty Name="Firmalar" Relationship="FaturaTakipModel.FK_Fatura_Firmalar_FirmaId" FromRole="Fatura" ToRole="Firmalar" />
         </EntityType>
@@ -271,7 +273,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -325,6 +327,7 @@
           <EntitySetMapping Name="Fatura">
             <EntityTypeMapping TypeName="FaturaTakipModel.Fatura">
               <MappingFragment StoreEntitySet="Fatura">
+                <ScalarProperty Name="OnaylandiMi" ColumnName="OnaylandiMi" />
                 <ScalarProperty Name="BilgisayarAdi" ColumnName="BilgisayarAdi" />
                 <ScalarProperty Name="KullaniciNo" ColumnName="KullaniciNo" />
                 <ScalarProperty Name="FaturaTarihi" ColumnName="FaturaTarihi" />
