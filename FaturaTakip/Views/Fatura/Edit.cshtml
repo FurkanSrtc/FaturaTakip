@@ -49,8 +49,11 @@
         @Html.LabelFor(model => model.Fatura.İncelendiMi, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             <div class="checkbox">
-                @Html.EditorFor(model => model.Fatura.İncelendiMi)
-                @Html.ValidationMessageFor(model => model.Fatura.İncelendiMi, "", new { @class = "text-danger" })
+                @*@Html.EditorFor(model => model.Fatura.İncelendiMi)*@
+                @*@Html.ValidationMessageFor(model => model.Fatura.İncelendiMi, "", new { @class = "text-danger" })*@
+
+                @Html.DropDownListFor(modelItem => modelItem.Fatura.İncelendiMi, new[] { new SelectListItem { Text = "İncelendi", Value = "true" }, new SelectListItem { Text = "İncelenmedi", Value = "false" } })
+
             </div>
         </div>
     </div>
@@ -59,8 +62,10 @@
         @Html.LabelFor(model => model.Fatura.OnaylandiMi, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             <div class="checkbox">
-                @Html.EditorFor(model => model.Fatura.OnaylandiMi)
-                @Html.ValidationMessageFor(model => model.Fatura.OnaylandiMi, "", new { @class = "text-danger" })
+
+                @Html.DropDownListFor(modelItem => modelItem.Fatura.OnaylandiMi, new[] { new SelectListItem { Text = "Onaylandı", Value = "true" }, new SelectListItem { Text = "Onaylanmadı", Value = "false" } })
+                @*@Html.EditorFor(model => model.Fatura.OnaylandiMi)
+        @Html.ValidationMessageFor(model => model.Fatura.OnaylandiMi, "", new { @class = "text-danger" })*@
             </div>
         </div>
     </div>
@@ -144,7 +149,7 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+            <input type="submit" value="Kaydet" class="btn btn-success" />
         </div>
     </div>
 </div>
