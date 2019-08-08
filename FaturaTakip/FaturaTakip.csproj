@@ -204,6 +204,9 @@
     <Compile Include="Models\Fatura.cs">
       <DependentUpon>FaturaModel1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FaturaInceleme.cs">
+      <DependentUpon>FaturaModel1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\FaturaModel1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

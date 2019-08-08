@@ -14,7 +14,8 @@ namespace FaturaTakip.Controllers
 
 
         int PageSize = 20;
-        [Authorize(Roles = "SatinAlma")]
+        [Authorize(Roles = "SatinAlma,MaliIsler")]
+     
         // GET: Fatura
         public ActionResult Index(int page=1)
         {
@@ -22,9 +23,17 @@ namespace FaturaTakip.Controllers
             //FaturaListViewModel faturaList = new FaturaListViewModel();
             //faturaList.FaturaList = db.Fatura.OrderByDescending(x => x.GonderimTarihi.Value).ToList();
 
+
+            ViewBag.IncelenmisDosyaSayisi = db.Fatura.Where(x => x.FaturaInceleme.Id == 2).Count();
+            ViewBag.IncelenenDosyaSayisi = db.Fatura.Where(x => x.FaturaInceleme.Id == 1).Count();
+            ViewBag.IncelenmemisDosyaSayisi = db.Fatura.Where(x => x.FaturaInceleme.Id == 0).Count();
+
+            ViewBag.OnaylanmisDosyaSayisi = db.Fatura.Where(x => x.OnaylandiMi == true).Count();
+            ViewBag.OnaylanmamisDosyaSayisi = db.Fatura.Where(x => x.OnaylandiMi == false || x.OnaylandiMi==null).Count();
+
             FaturaListViewModel faturaList = new FaturaListViewModel
             {
-                FaturaList = db.Fatura.OrderByDescending(x => x.GonderimTarihi.Value).ToList().Skip((page - 1) * PageSize).Take(PageSize),
+                FaturaList = db.Fatura.OrderBy(n => n.İncelendiMi.Value).ThenBy(x => x.GonderimTarihi.Value).ToList().Skip((page - 1) * PageSize).Take(PageSize),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
@@ -35,17 +44,25 @@ namespace FaturaTakip.Controllers
 
 
 
+
             faturaList.EksikBilgiList = db.EksikBilgi.ToList();
             return View(faturaList);
+
+
         }
 
 
-        [Authorize(Roles = "SatinAlma")]
+        [Authorize(Roles = "SatinAlma,MaliIsler")]
         public ActionResult Edit(string id)
         {
             FaturaEditViewModel f = new FaturaEditViewModel();
 
             HataTuruViewModel hataTuruView = new HataTuruViewModel();
+
+
+            List<FaturaInceleme> isDurumlari = db.FaturaInceleme.ToList();
+            ViewBag.Inceleme = new SelectList(isDurumlari, "Id", "IncelemeTuru");
+
 
             List<EksikBilgi> eksikBilgiler = db.EksikBilgi.Where(x => x.FatNo == id).ToList();
             f.Hatalar = new List<HataTuruViewModel>();
@@ -78,7 +95,7 @@ namespace FaturaTakip.Controllers
             return View(f);
         }
 
-        [Authorize(Roles = "SatinAlma")]
+        [Authorize(Roles = "SatinAlma,MaliIsler")]
         [HttpPost]
         public ActionResult Edit(FaturaEditViewModel fe)
         {

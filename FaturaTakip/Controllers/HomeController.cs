@@ -18,17 +18,15 @@ namespace FaturaTakip.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Santral")]
+        [Authorize(Roles = "Santral,SatinAlma,MaliIsler")]
         public ActionResult Ekle()
         {
-          
-
             return View();
         }
 
         FaturaTakipEntities db = new FaturaTakipEntities();
 
-        [Authorize(Roles = "Santral")]
+        [Authorize(Roles = "Santral,SatinAlma,MaliIsler")]
         [HttpPost]
         public ActionResult Ekle(FaturaEkleViewModel f, HttpPostedFileBase file)
         {
@@ -54,7 +52,7 @@ namespace FaturaTakip.Controllers
 
                 fatura.GonderimTarihi = DateTime.Now;
                 fatura.Aciklama = "";
-                fatura.İncelendiMi = false;
+                fatura.İncelendiMi = 0;
                 fatura.isVisible = true;
                 fatura.FaturaTarihi = f.FaturaTarihi;
                 fatura.KullaniciNo = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(User.Identity.Name);

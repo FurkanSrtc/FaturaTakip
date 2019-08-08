@@ -28,13 +28,20 @@
           <Property Name="GonderimTarihi" Type="date" />
           <Property Name="Aciklama" Type="varchar" MaxLength="70" />
           <Property Name="PdfYolu" Type="varchar" MaxLength="100" />
-          <Property Name="İncelendiMi" Type="bit" />
           <Property Name="isVisible" Type="bit" />
           <Property Name="FirmaId" Type="int" />
           <Property Name="FaturaTarihi" Type="date" />
           <Property Name="KullaniciNo" Type="varchar" MaxLength="40" />
           <Property Name="BilgisayarAdi" Type="varchar" MaxLength="20" />
           <Property Name="OnaylandiMi" Type="bit" />
+          <Property Name="İncelendiMi" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="FaturaInceleme">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="tinyint" Nullable="false" />
+          <Property Name="IncelemeTuru" Type="varchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="Firmalar">
           <Key>
@@ -97,6 +104,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FaturaInceleme_Fatura_incelendiMi">
+          <End Role="FaturaInceleme" Type="Self.FaturaInceleme" Multiplicity="0..1" />
+          <End Role="Fatura" Type="Self.Fatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FaturaInceleme">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Fatura">
+              <PropertyRef Name="İncelendiMi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Kullanicilar_Departman">
           <End Role="Departman" Type="Self.Departman" Multiplicity="0..1" />
           <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="*" />
@@ -113,6 +132,7 @@
           <EntitySet Name="Departman" EntityType="Self.Departman" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EksikBilgi" EntityType="Self.EksikBilgi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Fatura" EntityType="Self.Fatura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FaturaInceleme" EntityType="Self.FaturaInceleme" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Firmalar" EntityType="Self.Firmalar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HataTuru" EntityType="Self.HataTuru" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Kullanicilar" EntityType="Self.Kullanicilar" Schema="dbo" store:Type="Tables" />
@@ -126,6 +146,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Fatura_Firmalar_FirmaId" Association="Self.FK_Fatura_Firmalar_FirmaId">
             <End Role="Firmalar" EntitySet="Firmalar" />
+            <End Role="Fatura" EntitySet="Fatura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FaturaInceleme_Fatura_incelendiMi" Association="Self.FK_FaturaInceleme_Fatura_incelendiMi">
+            <End Role="FaturaInceleme" EntitySet="FaturaInceleme" />
             <End Role="Fatura" EntitySet="Fatura" />
           </AssociationSet>
           <AssociationSet Name="FK_Kullanicilar_Departman" Association="Self.FK_Kullanicilar_Departman">
@@ -152,12 +176,17 @@
             <End Role="EksikBilgi" EntitySet="EksikBilgi" />
           </AssociationSet>
           <EntitySet Name="Fatura" EntityType="FaturaTakipModel.Fatura" />
+          <EntitySet Name="FaturaInceleme" EntityType="FaturaTakipModel.FaturaInceleme" />
           <AssociationSet Name="FK_EksikBilgi_Fatura_FatNo" Association="FaturaTakipModel.FK_EksikBilgi_Fatura_FatNo">
             <End Role="Fatura" EntitySet="Fatura" />
             <End Role="EksikBilgi" EntitySet="EksikBilgi" />
           </AssociationSet>
           <AssociationSet Name="FK_Fatura_Firmalar_FirmaId" Association="FaturaTakipModel.FK_Fatura_Firmalar_FirmaId">
             <End Role="Firmalar" EntitySet="Firmalar" />
+            <End Role="Fatura" EntitySet="Fatura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FaturaInceleme_Fatura_incelendiMi" Association="FaturaTakipModel.FK_FaturaInceleme_Fatura_incelendiMi">
+            <End Role="FaturaInceleme" EntitySet="FaturaInceleme" />
             <End Role="Fatura" EntitySet="Fatura" />
           </AssociationSet>
           </EntityContainer>
@@ -239,15 +268,24 @@
           <Property Name="GonderimTarihi" Type="DateTime" Precision="0" />
           <Property Name="Aciklama" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
           <Property Name="PdfYolu" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="İncelendiMi" Type="Boolean" />
           <Property Name="isVisible" Type="Boolean" />
           <Property Name="FirmaId" Type="Int32" />
           <Property Name="FaturaTarihi" Type="DateTime" Precision="0" />
           <Property Name="KullaniciNo" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="BilgisayarAdi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="OnaylandiMi" Type="Boolean" />
+          <Property Name="İncelendiMi" Type="Byte" />
           <NavigationProperty Name="EksikBilgi" Relationship="FaturaTakipModel.FK_EksikBilgi_Fatura_FatNo" FromRole="Fatura" ToRole="EksikBilgi" />
           <NavigationProperty Name="Firmalar" Relationship="FaturaTakipModel.FK_Fatura_Firmalar_FirmaId" FromRole="Fatura" ToRole="Firmalar" />
+          <NavigationProperty Name="FaturaInceleme" Relationship="FaturaTakipModel.FK_FaturaInceleme_Fatura_incelendiMi" FromRole="Fatura" ToRole="FaturaInceleme" />
+        </EntityType>
+        <EntityType Name="FaturaInceleme">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Byte" Nullable="false" />
+          <Property Name="IncelemeTuru" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Fatura" Relationship="FaturaTakipModel.FK_FaturaInceleme_Fatura_incelendiMi" FromRole="FaturaInceleme" ToRole="Fatura" />
         </EntityType>
         <Association Name="FK_EksikBilgi_Fatura_FatNo">
           <End Type="FaturaTakipModel.Fatura" Role="Fatura" Multiplicity="0..1" />
@@ -270,6 +308,18 @@
             </Principal>
             <Dependent Role="Fatura">
               <PropertyRef Name="FirmaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FaturaInceleme_Fatura_incelendiMi">
+          <End Type="FaturaTakipModel.FaturaInceleme" Role="FaturaInceleme" Multiplicity="0..1" />
+          <End Type="FaturaTakipModel.Fatura" Role="Fatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FaturaInceleme">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Fatura">
+              <PropertyRef Name="İncelendiMi" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -327,17 +377,25 @@
           <EntitySetMapping Name="Fatura">
             <EntityTypeMapping TypeName="FaturaTakipModel.Fatura">
               <MappingFragment StoreEntitySet="Fatura">
+                <ScalarProperty Name="İncelendiMi" ColumnName="İncelendiMi" />
                 <ScalarProperty Name="OnaylandiMi" ColumnName="OnaylandiMi" />
                 <ScalarProperty Name="BilgisayarAdi" ColumnName="BilgisayarAdi" />
                 <ScalarProperty Name="KullaniciNo" ColumnName="KullaniciNo" />
                 <ScalarProperty Name="FaturaTarihi" ColumnName="FaturaTarihi" />
                 <ScalarProperty Name="FirmaId" ColumnName="FirmaId" />
                 <ScalarProperty Name="isVisible" ColumnName="isVisible" />
-                <ScalarProperty Name="İncelendiMi" ColumnName="İncelendiMi" />
                 <ScalarProperty Name="PdfYolu" ColumnName="PdfYolu" />
                 <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
                 <ScalarProperty Name="GonderimTarihi" ColumnName="GonderimTarihi" />
                 <ScalarProperty Name="FaturaNo" ColumnName="FaturaNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FaturaInceleme">
+            <EntityTypeMapping TypeName="FaturaTakipModel.FaturaInceleme">
+              <MappingFragment StoreEntitySet="FaturaInceleme">
+                <ScalarProperty Name="IncelemeTuru" ColumnName="IncelemeTuru" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

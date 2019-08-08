@@ -31,5 +31,6 @@ namespace FaturaTakip.Models
         public virtual DbSet<Kullanicilar> Kullanicilar { get; set; }
         public virtual DbSet<EksikBilgi> EksikBilgi { get; set; }
         public virtual DbSet<Fatura> Fatura { get; set; }
+        public virtual DbSet<FaturaInceleme> FaturaInceleme { get; set; }
     }
 }
