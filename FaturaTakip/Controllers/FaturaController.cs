@@ -24,16 +24,16 @@ namespace FaturaTakip.Controllers
             //faturaList.FaturaList = db.Fatura.OrderByDescending(x => x.GonderimTarihi.Value).ToList();
 
 
-            ViewBag.IncelenmisDosyaSayisi = db.Fatura.Where(x => x.FaturaInceleme.Id == 2).Count();
-            ViewBag.IncelenenDosyaSayisi = db.Fatura.Where(x => x.FaturaInceleme.Id == 1).Count();
-            ViewBag.IncelenmemisDosyaSayisi = db.Fatura.Where(x => x.FaturaInceleme.Id == 0).Count();
+            ViewBag.IncelenmisDosyaSayisi = db.Fatura.Where(x => x.FaturaInceleme.Id == 2 && x.isVisible==true).Count();
+            ViewBag.IncelenenDosyaSayisi = db.Fatura.Where(x => x.FaturaInceleme.Id == 1 && x.isVisible == true).Count();
+            ViewBag.IncelenmemisDosyaSayisi = db.Fatura.Where(x => x.FaturaInceleme.Id == 0 && x.isVisible == true).Count();
 
-            ViewBag.OnaylanmisDosyaSayisi = db.Fatura.Where(x => x.OnaylandiMi == true).Count();
-            ViewBag.OnaylanmamisDosyaSayisi = db.Fatura.Where(x => x.OnaylandiMi == false || x.OnaylandiMi==null).Count();
+            ViewBag.OnaylanmisDosyaSayisi = db.Fatura.Where(x => x.OnaylandiMi == true && x.isVisible == true).Count();
+            ViewBag.OnaylanmamisDosyaSayisi = db.Fatura.Where(x => x.OnaylandiMi == false || x.OnaylandiMi==null && x.isVisible == true).Count();
 
             FaturaListViewModel faturaList = new FaturaListViewModel
             {
-                FaturaList = db.Fatura.OrderBy(n => n.İncelendiMi.Value).ThenBy(x => x.GonderimTarihi.Value).ToList().Skip((page - 1) * PageSize).Take(PageSize),
+                FaturaList = db.Fatura.Where(x=>x.isVisible==true).OrderBy(n => n.İncelendiMi.Value).ThenBy(x => x.GonderimTarihi.Value).ToList().Skip((page - 1) * PageSize).Take(PageSize),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
@@ -94,6 +94,20 @@ namespace FaturaTakip.Controllers
 
             return View(f);
         }
+
+        [Authorize(Roles = "SatinAlma,MaliIsler")]
+        public ActionResult Arsiv(string id)
+        {
+            Fatura f = db.Fatura.Find(id);
+            f.isVisible = false;
+            db.SaveChanges();
+            return RedirectToAction("Index", "Fatura");
+        }
+
+       
+
+   
+
 
         [Authorize(Roles = "SatinAlma,MaliIsler")]
         [HttpPost]
