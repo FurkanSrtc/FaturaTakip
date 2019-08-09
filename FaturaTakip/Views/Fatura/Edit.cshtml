@@ -57,7 +57,7 @@
         </div>*@
 
     @{
-        if (User.IsInRole("MaliIsler"))
+        if (User.IsInRole("MaliIsler,Admin"))
         {
             <div class="form-group">
                 @Html.HiddenFor(model => model.Fatura.İncelendiMi, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -84,31 +84,32 @@
             </div>
         }
 
-        else { 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Fatura.İncelendiMi, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+        else
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Fatura.İncelendiMi, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
 
-                @Html.DropDownListFor(model => model.Fatura.İncelendiMi, ViewBag.Inceleme as SelectList, new { @class = "" })
+                    @Html.DropDownListFor(model => model.Fatura.İncelendiMi, ViewBag.Inceleme as SelectList, new { @class = "" })
 
-                @*@Html.EditorFor(model => model.uye.Uye_FakulteNo, new { htmlAttributes = new { @class = "form-control" } })*@
-            </div>
-        </div>
-
-       
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Fatura.OnaylandiMi, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-
-                    @Html.DropDownListFor(modelItem => modelItem.Fatura.OnaylandiMi, new[] { new SelectListItem { Text = "Onaylandı", Value = "true" }, new SelectListItem { Text = "Onaylanmadı", Value = "false" } })
-                    @*@Html.EditorFor(model => model.Fatura.OnaylandiMi)
-                        @Html.ValidationMessageFor(model => model.Fatura.OnaylandiMi, "", new { @class = "text-danger" })*@
+                    @*@Html.EditorFor(model => model.uye.Uye_FakulteNo, new { htmlAttributes = new { @class = "form-control" } })*@
                 </div>
             </div>
-        </div>
-         }
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Fatura.OnaylandiMi, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+
+                        @Html.DropDownListFor(modelItem => modelItem.Fatura.OnaylandiMi, new[] { new SelectListItem { Text = "Onaylandı", Value = "true" }, new SelectListItem { Text = "Onaylanmadı", Value = "false" } })
+                        @*@Html.EditorFor(model => model.Fatura.OnaylandiMi)
+                            @Html.ValidationMessageFor(model => model.Fatura.OnaylandiMi, "", new { @class = "text-danger" })*@
+                    </div>
+                </div>
+            </div>
+        }
     }
     @*<div class="form-group">
             @Html.LabelFor(model => model.Fatura.isVisible, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -142,7 +143,18 @@
         </div>
     </div>
 
+    @*<div class="form-group">
+        <div class="col-md-10">
+            <select class="mySelect2" style="width:30%;">
 
+
+                <option>test2</option>
+                <option>test3</option>
+
+                <option>test4</option>
+            </select>
+        </div>
+    </div>*@
 
     <div class="form-group">
         <div class="col-md-10">

@@ -182,10 +182,16 @@
 
                     @Html.ActionLink(" ", "Edit", new { id = item.FaturaNo }, new { @class = "btn btn-primary fa fa-pencil" })
 
+                    @{
+                        if (item.FaturaInceleme.Id == 2 && item.OnaylandiMi == true)
+                        {
+                            <button type="button" class="btn btn-success fa fa-check" data-toggle="modal" data-target="#@myModal"
+                                    data-whatever="@item.FaturaNo">
+                            </button>
+                        }
 
-                    <button type="button" class="btn btn-success fa fa-check" data-toggle="modal" data-target="#@myModal"
-                            data-whatever="@item.FaturaNo">
-                    </button>
+                    }
+
 
                     @*   @Html.ActionLink(" ", "Edit", new { id = item.FaturaNo }, new { @class = "btn btn-success fa fa-check" })*@
 

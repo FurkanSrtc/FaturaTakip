@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using FaturaTakip.Models;
 using FaturaTakip.Models.ViewModels;
 
@@ -19,7 +20,7 @@ namespace FaturaTakip.Controllers
         // GET: Fatura
         public ActionResult Index(int page=1)
         {
-
+            //CREATED BY FURKAN MERT SERTÇE 
             //FaturaListViewModel faturaList = new FaturaListViewModel();
             //faturaList.FaturaList = db.Fatura.OrderByDescending(x => x.GonderimTarihi.Value).ToList();
 
@@ -42,7 +43,7 @@ namespace FaturaTakip.Controllers
                 }
             };
 
-
+          
 
 
             faturaList.EksikBilgiList = db.EksikBilgi.ToList();
@@ -50,7 +51,18 @@ namespace FaturaTakip.Controllers
 
 
         }
+        //https://www.youtube.com/watch?v=JeawBGzSZYU izle
+        //public JsonResult GetUsers(string searhTerm) {
+                    
+        //    var dataList = Membership.GetAllUsers();
 
+        //    List<string> allusers = (from MembershipUser c in Membership.GetAllUsers()
+        //                             select new { UserName = c.ToString() }).Select(t => t.UserName).ToList());
+        //    allusers=allusers.Where()
+
+
+        //    return Json(dataList, JsonRequestBehavior.AllowGet);
+        //}
 
         [Authorize(Roles = "SatinAlma,MaliIsler")]
         public ActionResult Edit(string id)
