@@ -20,7 +20,7 @@ namespace FaturaTakip.Controllers
         // GET: Fatura
         public ActionResult Index(int page=1)
         {
-            //CREATED BY FURKAN MERT SERTÇE 
+            //CREATED BY FURKAN MERT SERTÇE 09.08.2019
             //FaturaListViewModel faturaList = new FaturaListViewModel();
             //faturaList.FaturaList = db.Fatura.OrderByDescending(x => x.GonderimTarihi.Value).ToList();
 
@@ -52,17 +52,33 @@ namespace FaturaTakip.Controllers
 
         }
         //https://www.youtube.com/watch?v=JeawBGzSZYU izle
-        //public JsonResult GetUsers(string searhTerm) {
-                    
-        //    var dataList = Membership.GetAllUsers();
+        public JsonResult GetUsers(string searchTerm)
+        {
 
-        //    List<string> allusers = (from MembershipUser c in Membership.GetAllUsers()
-        //                             select new { UserName = c.ToString() }).Select(t => t.UserName).ToList());
-        //    allusers=allusers.Where()
+            //List<string> allusers = (from MembershipUser c in Membership.GetAllUsers()
+            //                         select new { UserName = c.ToString() }).Select(t => t.UserName).ToList());
 
+            
+            var dataList = db.aspnet_Users.ToList();
+            if (searchTerm!=null)
+            {
+               dataList = db.aspnet_Users.Where(x => x.UserName.Contains(searchTerm)).ToList();
 
-        //    return Json(dataList, JsonRequestBehavior.AllowGet);
-        //}
+            }
+            var modifiedData = dataList.Select(x => new
+            {
+                id = x.UserId,
+                text = x.UserName
+            });
+
+            return Json(modifiedData, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Save(string data)
+        {
+         
+            return Json(0, JsonRequestBehavior.AllowGet);
+        }
 
         [Authorize(Roles = "SatinAlma,MaliIsler")]
         public ActionResult Edit(string id)

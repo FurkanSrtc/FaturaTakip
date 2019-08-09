@@ -259,6 +259,36 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HtmlHelpers\PagingHelpers.cs" />
+    <Compile Include="Models\aspnet_Applications.cs">
+      <DependentUpon>FaturaModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_Membership.cs">
+      <DependentUpon>FaturaModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_Paths.cs">
+      <DependentUpon>FaturaModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_PersonalizationAllUsers.cs">
+      <DependentUpon>FaturaModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_PersonalizationPerUser.cs">
+      <DependentUpon>FaturaModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_Profile.cs">
+      <DependentUpon>FaturaModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_Roles.cs">
+      <DependentUpon>FaturaModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_SchemaVersions.cs">
+      <DependentUpon>FaturaModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_Users.cs">
+      <DependentUpon>FaturaModel1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\aspnet_WebEvent_Events.cs">
+      <DependentUpon>FaturaModel1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Departman.cs">
       <DependentUpon>FaturaModel1.tt</DependentUpon>
     </Compile>
@@ -297,6 +327,7 @@
     <Compile Include="Models\Kullanicilar.cs">
       <DependentUpon>FaturaModel1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MembershipUserInRole.cs" />
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Models\ViewModels\FaturaEditViewModel.cs" />
     <Compile Include="Models\ViewModels\FaturaEkleViewModel.cs" />

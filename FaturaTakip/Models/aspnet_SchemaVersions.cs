@@ -15,20 +15,14 @@ namespace FaturaTakip.Models
 using System;
     using System.Collections.Generic;
     
-public partial class EksikBilgi
+public partial class aspnet_SchemaVersions
 {
 
-    public string FatNo { get; set; }
+    public string Feature { get; set; }
 
-    public Nullable<byte> HataKodu { get; set; }
+    public string CompatibleSchemaVersion { get; set; }
 
-    public int id { get; set; }
-
-
-
-    public virtual HataTuru HataTuru { get; set; }
-
-    public virtual Fatura Fatura { get; set; }
+    public bool IsCurrentVersion { get; set; }
 
 }
 

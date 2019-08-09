@@ -15,20 +15,24 @@ namespace FaturaTakip.Models
 using System;
     using System.Collections.Generic;
     
-public partial class EksikBilgi
+public partial class aspnet_PersonalizationPerUser
 {
 
-    public string FatNo { get; set; }
+    public System.Guid Id { get; set; }
 
-    public Nullable<byte> HataKodu { get; set; }
+    public Nullable<System.Guid> PathId { get; set; }
 
-    public int id { get; set; }
+    public Nullable<System.Guid> UserId { get; set; }
+
+    public byte[] PageSettings { get; set; }
+
+    public System.DateTime LastUpdatedDate { get; set; }
 
 
 
-    public virtual HataTuru HataTuru { get; set; }
+    public virtual aspnet_Paths aspnet_Paths { get; set; }
 
-    public virtual Fatura Fatura { get; set; }
+    public virtual aspnet_Users aspnet_Users { get; set; }
 
 }
 

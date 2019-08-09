@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿    <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -36,8 +36,42 @@
 
     <script>
         $(document).ready(function () {
-            $(".mySelect2").select2();
+            $(".mySelect2").select2({
+                placeholder: "Sorumlu Kisi",
+                allowClear: true,
+                theme: "classic",
+                ajax: {
+                    url: "/Fatura/GetUsers",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            searchTerm: params.term
+                        };
+                    },
+                    processResults: function (data, params) {
+                        return {
+                            results: data
+                        };
+                    }
+                }
+            });
         });
+
+        $(".mySelect2").on("change", function () {
+            var catId = $(this).val();
+            $("#textBoxVal").val(catId);
+
+            var textBoxValueData = $("#textBoxVal").val();
+            $.ajax({
+                url: '/Fatura/Save?data=' + textBoxValueData,
+                dataType: 'json',
+                type: 'post',
+             
+             
+            });
+        });
+
     </script>
 
 
