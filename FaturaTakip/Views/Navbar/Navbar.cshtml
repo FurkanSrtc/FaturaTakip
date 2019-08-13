@@ -29,9 +29,7 @@
                                 </li>
 
 
-                                <li class="nav-item">
-                                    <a class="nav-link" href="@Url.Action("Index", "Fatura")">Faturalar</a>
-                                </li>
+
 
                                 <li class="nav-item">
                                     <a class="nav-link" href="@Url.Action("Index", "Arsiv")">Arşiv</a>
@@ -53,8 +51,12 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="@Url.Action("Index", "Fatura")">Faturalar</a>
+                                    <a class="nav-link" href="@Url.Action("PersonelFaturaList", "Fatura")"> Gelen Kutusu</a>
                                 </li>
+
+                                @*<li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Fatura")">Faturalar</a>
+                    </li>*@
 
                                 <li class="nav-item">
                                     <a class="nav-link" href="@Url.Action("Index", "Arsiv")">Arşiv</a>
@@ -70,12 +72,19 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="@Url.Action("Index", "Fatura")">Faturalar</a>
+                                    <a class="nav-link" href="@Url.Action("PersonelFaturaList", "Fatura")"> Gelen Kutusu</a>
                                 </li>
+
+                                @*<li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Fatura")">Faturalar</a>
+                    </li>*@
 
                                 <li class="nav-item">
                                     <a class="nav-link" href="@Url.Action("Index", "Arsiv")">Arşiv</a>
                                 </li>
+
+
+
 
                             }
 
@@ -85,11 +94,17 @@
                                     <a class="nav-link" href="@Url.Action("Ekle", "Home")"> Fatura Ekle</a>
                                 </li>
 
-
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("PersonelFaturaList", "Fatura")"> Gelen Kutusu</a>
+                                </li>
 
                             }
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Index", "Fatura")">Faturalar</a>
+                            </li>
 
                         }
+
 
                     }
                 </ul>

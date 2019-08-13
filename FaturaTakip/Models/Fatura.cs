@@ -24,6 +24,8 @@ public partial class Fatura
 
         this.EksikBilgi = new HashSet<EksikBilgi>();
 
+        this.AtananPersonel = new HashSet<AtananPersonel>();
+
     }
 
 
@@ -58,6 +60,10 @@ public partial class Fatura
     public virtual Firmalar Firmalar { get; set; }
 
     public virtual FaturaInceleme FaturaInceleme { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+    public virtual ICollection<AtananPersonel> AtananPersonel { get; set; }
 
 }
 

@@ -136,6 +136,14 @@
           <Property Name="ExceptionType" Type="nvarchar" MaxLength="256" />
           <Property Name="Details" Type="ntext" />
         </EntityType>
+        <EntityType Name="AtananPersonel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FatNo" Type="varchar" MaxLength="20" />
+          <Property Name="UserId" Type="uniqueidentifier" />
+        </EntityType>
         <EntityType Name="Departman">
           <Key>
             <PropertyRef Name="DNo" />
@@ -331,6 +339,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AtananPersonel_aspUsers_userid">
+          <End Role="aspnet_Users" Type="Self.aspnet_Users" Multiplicity="0..1" />
+          <End Role="AtananPersonel" Type="Self.AtananPersonel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="AtananPersonel">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AtananPersonel_Fatura_id">
+          <End Role="Fatura" Type="Self.Fatura" Multiplicity="0..1" />
+          <End Role="AtananPersonel" Type="Self.AtananPersonel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fatura">
+              <PropertyRef Name="FaturaNo" />
+            </Principal>
+            <Dependent Role="AtananPersonel">
+              <PropertyRef Name="FatNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_EksikBilgi_Fatura_FatNo">
           <End Role="Fatura" Type="Self.Fatura" Multiplicity="0..1" />
           <End Role="EksikBilgi" Type="Self.EksikBilgi" Multiplicity="*" />
@@ -403,6 +435,7 @@
           <EntitySet Name="aspnet_Users" EntityType="Self.aspnet_Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="aspnet_UsersInRoles" EntityType="Self.aspnet_UsersInRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="aspnet_WebEvent_Events" EntityType="Self.aspnet_WebEvent_Events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AtananPersonel" EntityType="Self.AtananPersonel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Departman" EntityType="Self.Departman" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EksikBilgi" EntityType="Self.EksikBilgi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Fatura" EntityType="Self.Fatura" Schema="dbo" store:Type="Tables" />
@@ -453,6 +486,14 @@
           <AssociationSet Name="FK__aspnet_Us__UserI__6FE99F9F" Association="Self.FK__aspnet_Us__UserI__6FE99F9F">
             <End Role="aspnet_Users" EntitySet="aspnet_Users" />
             <End Role="aspnet_UsersInRoles" EntitySet="aspnet_UsersInRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AtananPersonel_aspUsers_userid" Association="Self.FK_AtananPersonel_aspUsers_userid">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="AtananPersonel" EntitySet="AtananPersonel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AtananPersonel_Fatura_id" Association="Self.FK_AtananPersonel_Fatura_id">
+            <End Role="Fatura" EntitySet="Fatura" />
+            <End Role="AtananPersonel" EntitySet="AtananPersonel" />
           </AssociationSet>
           <AssociationSet Name="FK_EksikBilgi_Fatura_FatNo" Association="Self.FK_EksikBilgi_Fatura_FatNo">
             <End Role="Fatura" EntitySet="Fatura" />
@@ -557,6 +598,15 @@
             <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
             <End Role="aspnet_Users" EntitySet="aspnet_Users" />
           </AssociationSet>
+          <EntitySet Name="AtananPersonel" EntityType="FaturaTakipModel.AtananPersonel" />
+          <AssociationSet Name="FK_AtananPersonel_aspUsers_userid" Association="FaturaTakipModel.FK_AtananPersonel_aspUsers_userid">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="AtananPersonel" EntitySet="AtananPersonel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AtananPersonel_Fatura_id" Association="FaturaTakipModel.FK_AtananPersonel_Fatura_id">
+            <End Role="Fatura" EntitySet="Fatura" />
+            <End Role="AtananPersonel" EntitySet="AtananPersonel" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Departman">
           <Key>
@@ -646,6 +696,7 @@
           <NavigationProperty Name="EksikBilgi" Relationship="FaturaTakipModel.FK_EksikBilgi_Fatura_FatNo" FromRole="Fatura" ToRole="EksikBilgi" />
           <NavigationProperty Name="Firmalar" Relationship="FaturaTakipModel.FK_Fatura_Firmalar_FirmaId" FromRole="Fatura" ToRole="Firmalar" />
           <NavigationProperty Name="FaturaInceleme" Relationship="FaturaTakipModel.FK_FaturaInceleme_Fatura_incelendiMi" FromRole="Fatura" ToRole="FaturaInceleme" />
+          <NavigationProperty Name="AtananPersonel" Relationship="FaturaTakipModel.FK_AtananPersonel_Fatura_id" FromRole="Fatura" ToRole="AtananPersonel" />
         </EntityType>
         <EntityType Name="FaturaInceleme">
           <Key>
@@ -813,6 +864,7 @@
           <NavigationProperty Name="aspnet_PersonalizationPerUser" Relationship="FaturaTakipModel.FK__aspnet_Pe__UserI__09A971A2" FromRole="aspnet_Users" ToRole="aspnet_PersonalizationPerUser" />
           <NavigationProperty Name="aspnet_Profile" Relationship="FaturaTakipModel.FK__aspnet_Pr__UserI__628FA481" FromRole="aspnet_Users" ToRole="aspnet_Profile" />
           <NavigationProperty Name="aspnet_Roles" Relationship="FaturaTakipModel.aspnet_UsersInRoles" FromRole="aspnet_Users" ToRole="aspnet_Roles" />
+          <NavigationProperty Name="AtananPersonel" Relationship="FaturaTakipModel.FK_AtananPersonel_aspUsers_userid" FromRole="aspnet_Users" ToRole="AtananPersonel" />
         </EntityType>
         <EntityType Name="aspnet_WebEvent_Events">
           <Key>
@@ -945,6 +997,40 @@
         <Association Name="aspnet_UsersInRoles">
           <End Type="FaturaTakipModel.aspnet_Roles" Role="aspnet_Roles" Multiplicity="*" />
           <End Type="FaturaTakipModel.aspnet_Users" Role="aspnet_Users" Multiplicity="*" />
+        </Association>
+        <EntityType Name="AtananPersonel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FatNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="Guid" />
+          <NavigationProperty Name="aspnet_Users" Relationship="FaturaTakipModel.FK_AtananPersonel_aspUsers_userid" FromRole="AtananPersonel" ToRole="aspnet_Users" />
+          <NavigationProperty Name="Fatura" Relationship="FaturaTakipModel.FK_AtananPersonel_Fatura_id" FromRole="AtananPersonel" ToRole="Fatura" />
+        </EntityType>
+        <Association Name="FK_AtananPersonel_aspUsers_userid">
+          <End Type="FaturaTakipModel.aspnet_Users" Role="aspnet_Users" Multiplicity="0..1" />
+          <End Type="FaturaTakipModel.AtananPersonel" Role="AtananPersonel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="AtananPersonel">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AtananPersonel_Fatura_id">
+          <End Type="FaturaTakipModel.Fatura" Role="Fatura" Multiplicity="0..1" />
+          <End Type="FaturaTakipModel.AtananPersonel" Role="AtananPersonel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fatura">
+              <PropertyRef Name="FaturaNo" />
+            </Principal>
+            <Dependent Role="AtananPersonel">
+              <PropertyRef Name="FatNo" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -1162,6 +1248,15 @@
               <ScalarProperty Name="RoleId" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="AtananPersonel">
+            <EntityTypeMapping TypeName="FaturaTakipModel.AtananPersonel">
+              <MappingFragment StoreEntitySet="AtananPersonel">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="FatNo" ColumnName="FatNo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

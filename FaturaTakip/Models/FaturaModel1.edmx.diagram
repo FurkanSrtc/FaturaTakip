@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fcf1a790165d40a58f8ea6242a50e1de" Name="Diagram1" ZoomLevel="67">
+      <Diagram DiagramId="fcf1a790165d40a58f8ea6242a50e1de" Name="Diagram1" ZoomLevel="46">
         <EntityTypeShape EntityType="FaturaTakipModel.Departman" Width="1.5" PointX="0.5" PointY="0.5" />
         <EntityTypeShape EntityType="FaturaTakipModel.Firmalar" Width="1.5" PointX="0.5" PointY="5.5" />
         <EntityTypeShape EntityType="FaturaTakipModel.HataTuru" Width="1.5" PointX="0.5" PointY="3.375" />
@@ -21,13 +21,13 @@
         <EntityTypeShape EntityType="FaturaTakipModel.aspnet_Applications" Width="1.5" PointX="11.625" PointY="1" />
         <EntityTypeShape EntityType="FaturaTakipModel.aspnet_Membership" Width="1.5" PointX="14.5" PointY="1.875" />
         <EntityTypeShape EntityType="FaturaTakipModel.aspnet_Paths" Width="1.5" PointX="11.625" PointY="4.125" />
-        <EntityTypeShape EntityType="FaturaTakipModel.aspnet_PersonalizationAllUsers" Width="1.5" PointX="11.625" PointY="7.125" />
-        <EntityTypeShape EntityType="FaturaTakipModel.aspnet_PersonalizationPerUser" Width="1.5" PointX="19.125" PointY="3.75" />
+        <EntityTypeShape EntityType="FaturaTakipModel.aspnet_PersonalizationAllUsers" Width="1.5" PointX="9.625" PointY="4.375" />
+        <EntityTypeShape EntityType="FaturaTakipModel.aspnet_PersonalizationPerUser" Width="1.5" PointX="16.625" PointY="6.5" />
         <EntityTypeShape EntityType="FaturaTakipModel.aspnet_Profile" Width="1.5" PointX="19" PointY="0.5" />
         <EntityTypeShape EntityType="FaturaTakipModel.aspnet_Roles" Width="1.5" PointX="7.625" PointY="0.5" />
         <EntityTypeShape EntityType="FaturaTakipModel.aspnet_SchemaVersions" Width="1.5" PointX="4.125" PointY="7.375" />
         <EntityTypeShape EntityType="FaturaTakipModel.aspnet_Users" Width="1.5" PointX="17" PointY="0.5" />
-        <EntityTypeShape EntityType="FaturaTakipModel.aspnet_WebEvent_Events" Width="1.5" PointX="9.5" PointY="5.125" />
+        <EntityTypeShape EntityType="FaturaTakipModel.aspnet_WebEvent_Events" Width="1.5" PointX="21.125" PointY="0.625" />
         <AssociationConnector Association="FaturaTakipModel.FK__aspnet_Me__Appli__4D94879B" />
         <AssociationConnector Association="FaturaTakipModel.FK__aspnet_Pa__Appli__7F2BE32F" />
         <AssociationConnector Association="FaturaTakipModel.FK__aspnet_Ro__Appli__6C190EBB" />
@@ -38,6 +38,9 @@
         <AssociationConnector Association="FaturaTakipModel.FK__aspnet_Pe__UserI__09A971A2" />
         <AssociationConnector Association="FaturaTakipModel.FK__aspnet_Pr__UserI__628FA481" />
         <AssociationConnector Association="FaturaTakipModel.aspnet_UsersInRoles" />
+        <EntityTypeShape EntityType="FaturaTakipModel.AtananPersonel" Width="1.5" PointX="19" PointY="8.25" />
+        <AssociationConnector Association="FaturaTakipModel.FK_AtananPersonel_aspUsers_userid" />
+        <AssociationConnector Association="FaturaTakipModel.FK_AtananPersonel_Fatura_id" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

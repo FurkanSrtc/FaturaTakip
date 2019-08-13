@@ -12,5 +12,6 @@ namespace FaturaTakip.Models.ViewModels
         public List<EksikBilgi> eksikBilgiler { get; set; }
         public Fatura Fatura { get; set; }
         public List<HataTuruViewModel> Hatalar { get; set; }
+       
     }
 }

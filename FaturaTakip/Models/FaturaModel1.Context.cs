@@ -66,6 +66,8 @@ public partial class FaturaTakipEntities : DbContext
 
     public virtual DbSet<aspnet_WebEvent_Events> aspnet_WebEvent_Events { get; set; }
 
+    public virtual DbSet<AtananPersonel> AtananPersonel { get; set; }
+
 }
 
 }

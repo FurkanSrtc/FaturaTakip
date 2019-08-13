@@ -37,7 +37,7 @@
     <script>
         $(document).ready(function () {
             $(".mySelect2").select2({
-                placeholder: "Sorumlu Kisi",
+                placeholder: "Kime",
                 allowClear: true,
                 theme: "classic",
                 ajax: {
@@ -72,6 +72,33 @@
             });
         });
 
+
+        $("#editsave").click(function () {
+         
+            var textBoxValueData = $("#textBoxVal").val();
+            var fatNo = $("#fatNo").val();
+
+      
+            //$.ajax({
+            //    //type: "POST",
+            //    data: {
+            //        data: textBoxValueData,
+            //        fatNo: fatNo,
+            //    },
+            //    url: "Fatura/Personeller",
+            //});
+
+
+
+
+            $.ajax({
+                url: '/Fatura/Personeller?data=' + textBoxValueData + '&fatNo=' + fatNo,
+                dataType: 'json',
+                type: 'post',
+             
+             
+            });
+        });
     </script>
 
 

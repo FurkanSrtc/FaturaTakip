@@ -15,7 +15,8 @@
     <h4>Fatura</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.Fatura.FaturaNo)
+    @Html.HiddenFor(model => model.Fatura.FaturaNo, new { @id = "fatNo" })
+
 
     @*<div class="form-group">
             @Html.LabelFor(model => model.Fatura.GonderimTarihi, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -143,12 +144,26 @@
         </div>
     </div>
 
+  
     <div class="form-group">
+
+        @Html.Label("Gönderilecek Personel(ler)", htmlAttributes: new { @class = "control-label col-md-2" })
+
+        <br />
+        <p class="control-label col-md-2">
+            @{
+                foreach (var item in ViewData["FaturayaAtananlar"] as string[])
+                {
+                    @item.ToString() <span> ,</span>
+
+
+                }
+
+            }
+        </p>
         <div class="col-md-10">
             <input type="hidden" id="textBoxVal" />
             <select class="mySelect2" multiple style="width:30%;">
-
-
             </select>
         </div>
     </div>
@@ -198,7 +213,7 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Kaydet" class="btn btn-success" />
+            <input type="submit" id="editsave" value="Kaydet" class="btn btn-success" />
         </div>
     </div>
 </div>

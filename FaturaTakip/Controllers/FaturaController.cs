@@ -9,32 +9,23 @@ using FaturaTakip.Models.ViewModels;
 
 namespace FaturaTakip.Controllers
 {
+    
     public class FaturaController : Controller
     {
+  
         FaturaTakipEntities db = new FaturaTakipEntities();
 
 
         int PageSize = 20;
-        [Authorize(Roles = "SatinAlma,MaliIsler")]
-     
-        // GET: Fatura
-        public ActionResult Index(int page=1)
+
+        public ActionResult PersonelFaturaList(int page = 1)
         {
-            //CREATED BY FURKAN MERT SERTÇE 09.08.2019
-            //FaturaListViewModel faturaList = new FaturaListViewModel();
-            //faturaList.FaturaList = db.Fatura.OrderByDescending(x => x.GonderimTarihi.Value).ToList();
-
-
-            ViewBag.IncelenmisDosyaSayisi = db.Fatura.Where(x => x.FaturaInceleme.Id == 2 && x.isVisible==true).Count();
-            ViewBag.IncelenenDosyaSayisi = db.Fatura.Where(x => x.FaturaInceleme.Id == 1 && x.isVisible == true).Count();
-            ViewBag.IncelenmemisDosyaSayisi = db.Fatura.Where(x => x.FaturaInceleme.Id == 0 && x.isVisible == true).Count();
-
-            ViewBag.OnaylanmisDosyaSayisi = db.Fatura.Where(x => x.OnaylandiMi == true && x.isVisible == true).Count();
-            ViewBag.OnaylanmamisDosyaSayisi = db.Fatura.Where(x => x.OnaylandiMi == false || x.OnaylandiMi==null && x.isVisible == true).Count();
+            var usId = (Guid)Membership.GetUser(User.Identity.Name).ProviderUserKey;
 
             FaturaListViewModel faturaList = new FaturaListViewModel
             {
-                FaturaList = db.Fatura.Where(x=>x.isVisible==true).OrderBy(n => n.İncelendiMi.Value).ThenBy(x => x.GonderimTarihi.Value).ToList().Skip((page - 1) * PageSize).Take(PageSize),
+
+                FaturaList = db.AtananPersonel.Where(x => x.Fatura.isVisible == true && x.UserId == usId).OrderBy(n => n.Fatura.İncelendiMi.Value).ThenBy(x => x.Fatura.GonderimTarihi.Value).ToList().Select(x => x.Fatura).Skip((page - 1) * PageSize).Take(PageSize),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
@@ -43,12 +34,75 @@ namespace FaturaTakip.Controllers
                 }
             };
 
-          
-
 
             faturaList.EksikBilgiList = db.EksikBilgi.ToList();
-            return View(faturaList);
 
+            return View(faturaList);
+        
+        }
+
+            //  [Authorize(Roles = "SatinAlma,MaliIsler")]
+
+            // GET: Fatura
+            public ActionResult Index(int page=1)
+        {
+            Boolean tumFaturalariGoster = false;
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = User.Identity.Name;
+                string[] roles = Roles.GetRolesForUser(user);
+
+
+
+                foreach (var item in roles)
+                {
+                    if (item == "Admin" || item == "Santral" || item == "SatinAlma" || item == "MaliIsler")
+                    {
+                        tumFaturalariGoster = true;
+                        break;
+                    }
+
+                }
+
+
+                //CREATED BY FURKAN MERT SERTÇE 09.08.2019
+                //FaturaListViewModel faturaList = new FaturaListViewModel();
+                //faturaList.FaturaList = db.Fatura.OrderByDescending(x => x.GonderimTarihi.Value).ToList();
+                if (tumFaturalariGoster == true)
+                {
+                    ViewBag.IncelenmisDosyaSayisi = db.Fatura.Where(x => x.FaturaInceleme.Id == 2 && x.isVisible == true).Count();
+                    ViewBag.IncelenenDosyaSayisi = db.Fatura.Where(x => x.FaturaInceleme.Id == 1 && x.isVisible == true).Count();
+                    ViewBag.IncelenmemisDosyaSayisi = db.Fatura.Where(x => x.FaturaInceleme.Id == 0 && x.isVisible == true).Count();
+
+                    ViewBag.OnaylanmisDosyaSayisi = db.Fatura.Where(x => x.OnaylandiMi == true && x.isVisible == true).Count();
+                    ViewBag.OnaylanmamisDosyaSayisi = db.Fatura.Where(x => x.OnaylandiMi == false || x.OnaylandiMi == null && x.isVisible == true).Count();
+
+                    FaturaListViewModel faturaList = new FaturaListViewModel
+                    {
+                        FaturaList = db.Fatura.Where(x => x.isVisible == true).OrderBy(n => n.İncelendiMi.Value).ThenBy(x => x.GonderimTarihi.Value).ToList().Skip((page - 1) * PageSize).Take(PageSize),
+                        PagingInfo = new PagingInfo
+                        {
+                            CurrentPage = page,
+                            ItemsPerPage = PageSize,
+                            TotalItems = db.Fatura.Count()
+                        }
+                    };
+
+
+
+
+                    faturaList.EksikBilgiList = db.EksikBilgi.ToList();
+                    return View(faturaList);
+                }
+
+
+                else
+                {
+                    return RedirectToAction("PersonelFaturaList");
+                }
+            }
+            else
+                return RedirectToAction("Index", "Login");
 
         }
         //https://www.youtube.com/watch?v=JeawBGzSZYU izle
@@ -73,12 +127,38 @@ namespace FaturaTakip.Controllers
 
             return Json(modifiedData, JsonRequestBehavior.AllowGet);
         }
-
+     
         public JsonResult Save(string data)
         {
-         
+
+           
             return Json(0, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult Personeller(string data,string fatNo)
+        {
+            List<AtananPersonel> ap = db.AtananPersonel.Where(x => x.FatNo == fatNo).ToList();
+            foreach (var item in ap)
+            {
+                db.AtananPersonel.Remove(item);
+            }
+       
+
+          
+            string[] authorsList = data.Split(',');
+            foreach (var item in authorsList)
+            {
+                AtananPersonel atanan = new AtananPersonel();
+                atanan.FatNo = fatNo;
+                atanan.UserId= Guid.Parse(item);
+                db.AtananPersonel.Add(atanan);
+            }
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
 
         [Authorize(Roles = "SatinAlma,MaliIsler")]
         public ActionResult Edit(string id)
@@ -112,8 +192,14 @@ namespace FaturaTakip.Controllers
                 f.Hatalar.Add(hataTuruView);
                 
             }
-
-            
+          
+           List<string> atananlar = db.AtananPersonel.Where(x => x.FatNo == id).Select(x=>x.aspnet_Users.UserName).ToList();
+            string[] a = new String[atananlar.Count()];
+            for (int i = 0; i < atananlar.Count(); i++)
+            {
+                a[i] = atananlar[i];
+            }
+            ViewData["FaturayaAtananlar"] = a;
 
             ViewBag.FaturaNo = id;
 
@@ -132,15 +218,16 @@ namespace FaturaTakip.Controllers
             return RedirectToAction("Index", "Fatura");
         }
 
-       
 
-   
+
+       
 
 
         [Authorize(Roles = "SatinAlma,MaliIsler")]
         [HttpPost]
         public ActionResult Edit(FaturaEditViewModel fe)
         {
+          
             var f = db.Fatura.Find(fe.Fatura.FaturaNo);
             //f.FaturaNo = fe.Fatura.FaturaNo;
             f.Aciklama = fe.Fatura.Aciklama;
