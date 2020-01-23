@@ -1,7 +1,7 @@
 # FaturaTakip
-Fatura Takip Web App
 
-Üye Ol Ekranı
+
+###### Üye Ol Ekranı
 ![login](https://github.com/FurkanSrtc/FaturaTakip/blob/master/Uygulama_icerigi/Screenshot_1.png)
 
 Üye Girişi
